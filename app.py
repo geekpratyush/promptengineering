@@ -4,18 +4,18 @@ import streamlit as st
 
 st.header('A BasicGPT _by_ :blue[Pratyush Ranjan Mishra] :sunglasses:')
 
-if text := st.text_area("Enter the system text here..","""You should express what you want a model to do by \ 
-providing instructions that are as clear and \ 
-specific as you can possibly make them. \ 
-This will guide the model towards the desired output, \ 
-and reduce the chances of receiving irrelevant \ 
-or incorrect responses. Don't confuse writing a \ 
-clear prompt with writing a short prompt. \ 
-In many cases, longer prompts provide more clarity \ 
-and context for the model, which can lead to \ 
+if text := st.text_area("Enter the system text here..","""You should express what you want a model to do by  
+providing instructions that are as clear and 
+specific as you can possibly make them. 
+This will guide the model towards the desired output, 
+and reduce the chances of receiving irrelevant 
+or incorrect responses. Don't confuse writing a 
+clear prompt with writing a short prompt. 
+In many cases, longer prompts provide more clarity 
+and context for the model, which can lead to 
 more detailed and relevant outputs.
 """):
-    prompt = st.text_area("Prompt",f"""Summarize the text delimited by triple backticks \ 
+    prompt1 = st.text_area("Prompt",f"""Summarize the text delimited by triple backticks  
 into a single sentence.
 ```{text}```
 """)
@@ -24,6 +24,7 @@ into a single sentence.
 
 with st.sidebar:
     st.title('🤖💬 OpenAI Chatbot :flag-in:')
+    temp = st.slider('Set the temperature', 0.0, 1.0, 0.7)
     if 'OPENAI_API_KEY' in st.secrets:
         st.success('API key already provided!', icon='✅')
         openai.api_key = st.secrets['OPENAI_API_KEY']
@@ -33,6 +34,8 @@ with st.sidebar:
             st.warning('Please enter your credentials!', icon='⚠️')
         else:
             st.success('Proceed to entering your prompt message!', icon='👉')
+
+    
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -51,6 +54,7 @@ st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
 
 if prompt := st.chat_input("What is up?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
+    
     with st.chat_message("user"):
         st.markdown(prompt)
     with st.chat_message("assistant"):
