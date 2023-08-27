@@ -25,6 +25,7 @@ with st.sidebar:
         else:
             st.success('Proceed to entering your prompt message!', icon='👉')
 
+
 with st.form("my_form"):
     if instruction := st.text_area("Instruction to Model","You are a language expert, please summarize the text written here.",height=100):
         text = st.text_area("Enter your text here","Provide your text that to be processed as per the instruction above.",height=100)
@@ -41,37 +42,3 @@ with st.form("my_form"):
 
 
 
-
-
-
-# if "messages" not in st.session_state:
-#     st.session_state.messages = []
-
-# for message in st.session_state.messages:
-#     with st.chat_message(message["role"]):
-#         if message["role"] == "system":
-#             st.markdown("How can I assist you?")
-#         else:    
-#             st.markdown(message["content"])
-
-# def clear_chat_history():
-#     st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
-# st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
-
-
-# if prompt := st.chat_input("What is up?"):
-#     st.session_state.messages.append({"role": "user", "content": prompt})
-    
-#     with st.chat_message("user"):
-#         st.markdown(prompt)
-#     with st.chat_message("assistant"):
-#         message_placeholder = st.empty()
-#         full_response = ""
-#         for response in openai.ChatCompletion.create(
-#             model="gpt-3.5-turbo",
-#             messages=[{"role": m["role"], "content": m["content"]}
-#                       for m in st.session_state.messages], stream=True):
-#             full_response += response.choices[0].delta.get("content", "")
-#             message_placeholder.markdown(full_response + "▌")
-#         message_placeholder.markdown(full_response)
-#     st.session_state.messages.append({"role": "assistant", "content": full_response})
