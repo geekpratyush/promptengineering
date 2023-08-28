@@ -102,16 +102,39 @@ with formalConversion:
     {"name":"Bob", "email":"bob32@gmail.com"},
     {"name":"Jai", "email":"jai87@gmail.com"}
     ]}
-    prompt=st.text_area("Enter a message to change tone:","Translate the following python dictionary from JSON to an HTML table with column headers and title:")
+    prompt=st.text_area("Enter a message to change tone:","Translate the following python dictionary from JSON to an HTML table with column headers and title without style sheet:")
     prompt=prompt+json.dumps(data_json)
-    st.write(prompt)
+    st.write(data_json)
     with st.form("fc"):
-        st.write(prompt)
         submitted = st.form_submit_button("Submit")
     if submitted:
         response=get_completion(prompt=prompt,temperature=temp)
-        st.write(response)
+        st.code(response,line_numbers=True)
         st.write(HTML(response))     
 
 with spellCheck:
-    st.header("Spell Check and Grammer")    
+    st.header("Spell Check and Grammer")   
+    with st.expander("Example 01"):
+        prompt1=st.text_area("Prompt 01:",f"""Proofread and correct the following text and rewrite the corrected version. If you don't find and errors, just say "No errors found". Don't use any punctuation around the text:""")
+        text1=st.text_area("Proofread 01, correct and rewrite the correct version.","""The girl with the black and white puppies have a ball., Yolanda has her notebook., Its going to be a long day. Does the car need it’s oil changed?, Their goes my freedom. There going to bring they’re suitcases., Your going to need you’re notebook., That medicine effects my ability to sleep. Have you heard of the butterfly affect?, This phrase is to cherck chatGPT for speling abilitty""")
+        if st.button("Process Prompt 01"):
+            prompt=prompt1+" "+text1
+            response=get_completion(prompt=prompt,temperature=temp)
+            st.write(response)
+    with st.expander("Example 02"):
+        prompt2=st.text_area("Prompt 02:",f"proofread and correct this review:")
+        text2=st.text_area("Proofread 02, correct and rewrite the correct version.","""Got this for my daughter for her birthday cuz she keeps taking mine from my room.  Yes, adults also like pandas too.  She takes it everywhere with her, and it's super soft and cute.  One of the ears is a bit lower than the other, and I don't think that was designed to be asymmetrical. It's a bit small for what I paid for it though. I think there might be other options that are bigger for the same price.  It arrived a day earlier than expected, so I got to play with it myself before I gave it to my daughter.""")
+        if st.button("Process Prompt 02"):
+            prompt=prompt2+" "+text2
+            response=get_completion(prompt=prompt,temperature=temp)
+            st.write(response)
+    with st.expander("Example 03"):
+        prompt3=st.text_area("Prompt 03:",f"""proofread and correct this review. Make it more compelling. 
+Ensure it follows APA style guide and targets an advanced reader. 
+Output in markdown format.
+Text: """)
+        text3=st.text_area("Proofread 03, correct and rewrite the correct version.","""Got this for my daughter for her birthday cuz she keeps taking mine from my room.  Yes, adults also like pandas too.  She takes it everywhere with her, and it's super soft and cute.  One of the ears is a bit lower than the other, and I don't think that was designed to be asymmetrical. It's a bit small for what I paid for it though. I think there might be other options that are bigger for the same price.  It arrived a day earlier than expected, so I got to play with it myself before I gave it to my daughter.""")
+        if st.button("Process Prompt 03"):
+            prompt=prompt3+" "+text3
+            response=get_completion(prompt=prompt,temperature=temp)
+            st.write(response)            
